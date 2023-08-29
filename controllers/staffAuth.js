@@ -1,0 +1,53 @@
+
+const staff = require('../mySchemas/Staffs');
+
+const jwt = require('jsonwebtoken');
+const role = require('../config/roles').Staff;
+require('dotenv').config();
+
+const staffActive = async (req, res, error) => {
+    console.log(error);
+    const { userName, email } = req.body;
+    if (!userName || !email) return res.status(400).json("UserName, and Email Are Required");
+
+    try {
+        const user = await staff.findOne({ email }).exec();
+        if (!user) {
+            return res.status(401).json("User not found");
+        }
+        const roles = Object.values(user.roles);
+
+        const AccessToken = jwt.sign(
+            {
+                "User": {
+                    "userName": user.userName,
+                    "email": user.email,
+                    "role": role
+                }
+            },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "1day" }
+        );
+        console.log(roles)
+        const refreshToken = jwt.sign(
+            {
+                "userName": user.userName,
+                "email": user.email
+            },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '1day' }
+        );
+
+        user.refreshToken = refreshToken;
+        const result = await user.save();
+        console.log(result);
+
+        res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });
+        res.json(`You Have been logged in with The access Token: ${AccessToken}`);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500); // Internal server error
+    }
+}
+
+module.exports = { staffActive };
