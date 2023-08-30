@@ -67,7 +67,7 @@ const regNewStaff = async (req, res) => {
                 },
             })
             .then(console.log(result))
-        console.log(textContent)
+
         // .catch(console.log)
 
         res.status(201).json({ Success: `You have successfully registered ${userName} into the staff's DB` });
@@ -78,12 +78,15 @@ const regNewStaff = async (req, res) => {
 };
 
 const updateStaff = async (req, res) => {
+    const { userName, email, firstName, lastName, password, gender, designation, maritalStatus } = req.body;
     const uniqueID = req.body.id;
     if (!uniqueID) return res.status(400).json({ 'Message': 'Staff Unique ID Is Required' });
 
     try {
         const staff = await Staff.findById(req.body.id);
-        if (!staff) return res.status(400).json({ 'Message': `The Unique ID ${uniqueID} Was Not Found Or Does Not Exist In This Database` });
+        if (!staff) {
+            return res.status(400).json({ 'Message': `The Unique ID ${uniqueID} Was Not Found Or Does Not Exist In This Database` });
+        }
 
         if (req.body.userName) {
             staff.userName = req.body.userName;
@@ -113,11 +116,9 @@ const updateStaff = async (req, res) => {
         if (req.body.Active !== undefined) {
             staff.Active = req.body.Active
         }
-
         const result = await staff.save();
         res.json(result);
         console.log(result);
-
         const tranEmailApi = new Sib.TransactionalEmailsApi()
         const sender = {
             email: 'rupetosakwe@gmail.com',
@@ -126,7 +127,7 @@ const updateStaff = async (req, res) => {
         }
         const receiver = [
             {
-                email: email,
+                email: email
             },
         ]
         tranEmailApi
@@ -140,7 +141,8 @@ const updateStaff = async (req, res) => {
                 },
             })
             .then(console.log(result))
-        // .catch(console.log)        
+        // .catch(console.log)  
+
     } catch (err) {
         console.log(err.message);
         res.status(500).json('Internal Server Error');
