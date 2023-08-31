@@ -13,7 +13,7 @@ const staffActive = async (req, res, error) => {
     try {
         const user = await staff.findOne({ email }).exec();
         if (!user) {
-            return res.status(401).json("User not found");
+            return res.status(404).json("User not found");
         }
         const roles = Object.values(user.roles);
 
@@ -43,7 +43,7 @@ const staffActive = async (req, res, error) => {
         console.log(result);
 
         res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });
-        res.json(`You Have been logged in with The access Token: ${AccessToken}`);
+        res.status(200).json({ AccessToken: AccessToken });
     } catch (error) {
         console.error(error);
         res.sendStatus(500); // Internal server error

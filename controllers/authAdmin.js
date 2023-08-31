@@ -11,7 +11,7 @@ const adminActive = async (req, res, error) => {
     if (!userName || !password || !email) return res.status(400).json("User Name, Password, and Email Are Required");
 
     try {
-        const admin = await staff.findOne({ userName: userName }).exec();
+        const admin = await staff.findOne({ email }).exec();
         if (!admin) {
             return res.status(401).json("Admin not found");
         }
@@ -44,7 +44,7 @@ const adminActive = async (req, res, error) => {
         console.log(result);
 
         res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });
-        res.json({ AccessToken });
+        res.status(200).json({ AccessToken });
     } catch (error) {
         console.error(error);
         res.sendStatus(500); // Internal server error
