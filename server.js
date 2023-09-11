@@ -26,5 +26,6 @@ app.use('/staffBase', require('./routes/staff'));
 app.use('/resultBase', require('./routes/result'));
 app.use('/AdminLogin', require('./routes/adminAuth'));
 app.use('/staffLogin', require('./routes/staffLogIn'));
+app.use('/studentLogIn', require('./routes/studentLogIn'))
 // app.use(verifyJWT);
 app.listen(PORT, () => console.log(`Server Running On PORT ${PORT}`))

@@ -5,6 +5,7 @@ const allowedOrigins = [
     'smtp.mailtrap.io',
     "smtp.forwardmail.net",
     'smtp.gmail.com',
-    'smtp.mailgun.org'
+    'smtp.mailgun.org',
+    'https://schoolportal-q4sz.onrender.com/staffBase'
 ]
 module.exports = allowedOrigins
