@@ -89,19 +89,21 @@ const deleteStudent = async (req, res) => {
 };
 
 const getOneStudent = async (req, res) => {
-    const uniqueID = req.params.id;
+    const uniqueID = req.body._id;
     if (!uniqueID) {
         return res.status(400).json('Student Unique ID Is required');
     }
     try {
-        const result = await Student.findOne({ id: uniqueID }).exec();
-        if (!result) return res.status(400).json(`Unique ID ${uniqueID} Not Found`)
-        res.sendStatus(200).json(result)
+        const result = await Student.findOne({ _id: uniqueID }).exec();
+        if (!result) {
+            return res.status(404).json(`Unique ID ${uniqueID} Not Found`);
+        }
         console.log(result);
+        return res.status(200).json(result);
     } catch (err) {
-        res.sendStatus(500).json('Internal Service Error');
-        console.log(err.message)
+        console.error(err.message);
+        return res.status(500).json('Internal Service Error');
     }
-}
-module.exports = { getAllStudents, regNewStudent, updateStudent, deleteStudent, getOneStudent };
+};
 
+module.exports = { getAllStudents, regNewStudent, updateStudent, deleteStudent, getOneStudent };
