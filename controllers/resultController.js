@@ -96,12 +96,12 @@ const deleteResult = async (req, res) => {
 
 const getOneResult = async (req, res) => {
     const uniqueID = req.params.id;
-    if (!uniqueID) {
-        return res.status(400).json('Student Unique ID Is required');
+    if (!req?.params?.id) {
+        return res.status(204).json('Student Unique ID Is required');
     }
     try {
         const result = await Result.findOne({ _id: req.params.id }).exec();
-        if (!result) return res.status(400).json(`unique ID ${uniqueID} Not Found`)
+        if (!result) return res.status(204).json(`unique ID ${uniqueID} Not Found`)
         res.status(200).json(result)
         console.log(result);
     } catch (err) {
