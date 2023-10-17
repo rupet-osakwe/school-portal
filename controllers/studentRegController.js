@@ -89,7 +89,7 @@ const deleteStudent = async (req, res) => {
 };
 
 const getOneStudent = async (req, res) => {
-    const uniqueID = req.body._id;
+    const uniqueID = req.params.id;
     if (!uniqueID) {
         return res.status(400).json('Student Unique ID Is required');
     }
