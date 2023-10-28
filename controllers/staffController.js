@@ -78,43 +78,45 @@ const regNewStaff = async (req, res) => {
 };
 
 const updateStaff = async (req, res) => {
-    const { userName, email, firstName, lastName, password, gender, designation, maritalStatus } = req.body;
+   
+    try {
+
+         const { userName, email, firstName, lastName, password, gender, designation, maritalStatus } = req.body;
     const uniqueID = req.body.id;
     if (!uniqueID) return res.status(400).json({ 'Message': 'Staff Unique ID Is Required' });
 
-    try {
         const staff = await Staff.findById(req.body.id);
         if (!staff) {
             return res.status(404).json({ 'Message': `The Unique ID ${uniqueID} Was Not Found Or Does Not Exist In This Database` });
         }
 
-        if (userName) {
-            staff.userName = userName;
+        if (req.body?.userName) {
+            staff.userName = req.body.userName;
         }
 
-        if (password) {
-            staff.password = password;
+        if (req.body?.password) {
+            staff.password = req.body.password;
         }
-        if (firstName) {
-            staff.firstName = firstName;
+        if (req.body?.firstName) {
+            staff.firstName = req.body.firstName;
         }
-        if (lastName) {
-            staff.lastName = lastName;
+        if (req.body?.lastName) {
+            staff.lastName = req.body.lastName;
         }
-        if (email) {
-            staff.email = email;
+        if (req.body?.email) {
+            staff.email = req.body.email;
         }
-        if (designation) {
-            staff.designation = designation;
+        if (req.body?.designation) {
+            staff.designation = req.body.designation;
         }
-        if (gender) {
-            staff.gender = gender;
+        if (req.body?.gender) {
+            staff.gender = req.body.gender;
         }
-        if (maritalStatus) {
-            staff.maritalStatus = maritalStatus;
+        if (req.body?.maritalStatus) {
+            staff.maritalStatus = req.body.maritalStatus;
         }
-        if (Active !== undefined) {
-            staff.Active = Active
+        if (req.body.Active !== undefined) {
+            staff.Active = req.body.Active
         }
         const result = await staff.save();
         res.json(result);
