@@ -7,12 +7,12 @@ const roles = require('../config/roles');
 const staffController = require('../controllers/staffController');
 
 router.route('/')
-    .get(verifyJWT, verifyAccess(roles.Staff, roles.Student), staffController.getAllStaffs)
+    .get(verifyJWT, verifyAccess(roles.Staff, roles.Student, roles.Admin), staffController.getAllStaffs)
     .post(verifyJWT, verifyAccess(roles.Admin), staffController.regNewStaff)
     .put(verifyJWT, verifyAccess(roles.Admin), staffController.updateStaff)
     .delete(verifyJWT, verifyAccess(roles.Admin), staffController.deleteStaff)
 router.route('/:id')
-    .get(verifyJWT, verifyAccess(roles.Staff, roles.Student), staffController.getOneStaff);
+    .get(verifyJWT, verifyAccess(roles.Staff, roles.Student, roles.Admin), staffController.getOneStaff);
 
 
 module.exports = router

@@ -8,9 +8,9 @@ const studentRegController = require('../controllers/studentRegController');
 
 router.route('/')
     .get(studentRegController.getAllStudents)
-    .post(verifyJWT, verifyAccess(roles.Admin), studentRegController.regNewStudent)//roles.Student, roles.Admin, roles.Staff
-    .put(verifyAccess(roles.Staff || roles.Admin || roles.Staff), studentRegController.updateStudent)
-    .delete(verifyAccess(roles.Staff, roles.Admin || roles.Staff), studentRegController.deleteStudent)
+    .post(verifyJWT, verifyAccess(roles.Admin, roles.Staff, roles.Student), studentRegController.regNewStudent)
+    .put(verifyAccess(roles.Staff, roles.Admin), studentRegController.updateStudent)
+    .delete(verifyAccess(roles.Staff, roles.Admin), studentRegController.deleteStudent)
 router.route('/:id')
     .get(studentRegController.getOneStudent);
 
