@@ -72,7 +72,7 @@ const updateStudent = async (req, res) => {
     };
 }
 const deleteStudent = async (req, res) => {
-    const uniqueID = req.body.id;
+    const uniqueID = req.params.id;
     const username = req.body.userName;
     if (!uniqueID) {
         return res.status(400).json({ message: 'ID Parameter is required' });

@@ -78,12 +78,12 @@ const regNewStaff = async (req, res) => {
 };
 
 const updateStaff = async (req, res) => {
-   
+
     try {
 
-         const { userName, email, firstName, lastName, password, gender, designation, maritalStatus } = req.body;
-    const uniqueID = req.body.id;
-    if (!uniqueID) return res.status(400).json({ 'Message': 'Staff Unique ID Is Required' });
+        const { userName, email, firstName, lastName, password, gender, designation, maritalStatus } = req.body;
+        const uniqueID = req.body.id;
+        if (!uniqueID) return res.status(400).json({ 'Message': 'Staff Unique ID Is Required' });
 
         const staff = await Staff.findById(req.body.id);
         if (!staff) {
@@ -152,7 +152,7 @@ const updateStaff = async (req, res) => {
 };
 
 const deleteStaff = async (req, res) => {
-    const uniqueID = req.body.id;
+    const uniqueID = req.params.id;
     if (!uniqueID) {
         return res.status(400).json({ message: 'ID Parameter is required' });
     }

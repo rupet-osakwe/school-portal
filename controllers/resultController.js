@@ -78,7 +78,7 @@ const updateResult = async (req, res) => {
     };
 }
 const deleteResult = async (req, res) => {
-    const uniqueID = req.body.id;
+    const uniqueID = req.params.id;
     if (!uniqueID) {
         return res.status(400).json({ message: 'ID Parameter is required' });
     }
@@ -86,7 +86,7 @@ const deleteResult = async (req, res) => {
     const studentResult = await Result.findOne({ _id: uniqueID }).exec();
     if (!studentResult) return res.status(204).json({ "message": "No Result matches with the result ID you provided" });
     try {
-        const result = await studentResult.deleteOne({ _id: req.body.id });
+        const result = await studentResult.deleteOne({ _id: req.params.id });
         res.status(200).json({ "Message": `you deleted the result with the unique ID ${uniqueID} successfully` });
         console.log(result);
     } catch (err) {
