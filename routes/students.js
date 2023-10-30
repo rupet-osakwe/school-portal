@@ -10,8 +10,9 @@ router.route('/')
     .get(studentRegController.getAllStudents)
     .post(verifyJWT, verifyAccess(roles.Admin, roles.Staff, roles.Student), studentRegController.regNewStudent)
     .put(verifyJWT, verifyAccess(roles.Staff, roles.Admin), studentRegController.updateStudent)
-    .delete(verifyJWT, verifyAccess(roles.Staff, roles.Admin), studentRegController.deleteStudent)
 router.route('/:id')
+    .delete(verifyJWT, verifyAccess(roles.Staff, roles.Admin), studentRegController.deleteStudent)
+
     .get(studentRegController.getOneStudent);
 
 
