@@ -7,6 +7,6 @@ const allowedOrigins = [
     'smtp.gmail.com',
     'smtp.mailgun.org',
     'https://schoolportal-q4sz.onrender.com/staffBase',
-    'https://school-management-system-by-rupet.vercel.app/'
+    'https://school-management-system-by-rupet.vercel.app'
 ]
 module.exports = allowedOrigins

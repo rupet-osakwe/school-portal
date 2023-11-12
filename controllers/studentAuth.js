@@ -43,7 +43,7 @@ const studentAuth = async (req, res, error) => {
         console.log(result);
 
 
-        res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie("jwt", refreshToken, { sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });//httpOnly: true,
         res.status(200).json({ AccessToken: AccessToken });
     } catch (error) {
         console.error(error);

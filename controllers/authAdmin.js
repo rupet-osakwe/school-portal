@@ -43,7 +43,7 @@ const adminActive = async (req, res, error) => {
         const result = await admin.save();
         console.log(result);
 
-        res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie("jwt", refreshToken, { sameSite: "None", maxAge: 24 * 60 * 60 * 1000 });//httpOnly: true,
         res.status(200).json({ AccessToken });
     } catch (error) {
         console.error(error);
