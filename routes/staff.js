@@ -6,11 +6,11 @@ const roles = require('../config/roles');
 
 const staffController = require('../controllers/staffController');
 
-router.route('/')
+router.route('/staffBase')
     .get(verifyJWT, verifyAccess(roles.Staff, roles.Student, roles.Admin), staffController.getAllStaffs)
     .post(verifyJWT, verifyAccess(roles.Admin), staffController.regNewStaff)
     .put(verifyJWT, verifyAccess(roles.Admin), staffController.updateStaff)
-router.route('/:id')
+router.route('/staffBase:id')
     .delete(verifyJWT, verifyAccess(roles.Admin), staffController.deleteStaff)
 
     .get(verifyJWT, verifyAccess(roles.Staff, roles.Student, roles.Admin), staffController.getOneStaff);
