@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const authController = require('../controllers/authAdmin');
-router.route('/AdminLogin')
+router.route('/')
     .post(authController.adminActive);
 
 

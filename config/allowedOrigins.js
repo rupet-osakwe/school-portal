@@ -6,7 +6,7 @@ const allowedOrigins = [
     "smtp.forwardmail.net",
     'smtp.gmail.com',
     'smtp.mailgun.org',
-    'https://schoolportal-q4sz.onrender.com/staffBase',
+    'https://schoolportal-q4sz.onrender.com',
     'https://school-management-system-by-rupet.vercel.app'
 ]
 module.exports = allowedOrigins

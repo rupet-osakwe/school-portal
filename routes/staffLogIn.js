@@ -6,7 +6,7 @@ const verifyJWT = require('../middleware/verifyJwt');
 const roles = require('../config/roles');
 
 const staffLogIn = require('../controllers/staffAuth');
-router.route('/staffLogin')
+router.route('/')
     .post(staffLogIn.staffActive);
 
 
