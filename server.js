@@ -17,7 +17,7 @@ connectDB().then(() => {
     throw new Error(err.message);
 });
 app.use(credentials);
-app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
