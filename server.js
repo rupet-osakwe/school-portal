@@ -17,10 +17,11 @@ connectDB().then(() => {
     throw new Error(err.message);
 });
 app.use(credentials);
-app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
+
 app.use('/studentBase', require('./routes/students'));
 app.use('/staffBase', require('./routes/staff'));
 app.use('/resultBase', require('./routes/result'));
