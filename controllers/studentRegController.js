@@ -10,15 +10,15 @@ const getAllStudents = async (req, res) => {
 }
 
 const regNewStudent = async (req, res) => {
-    const { userName, email, firstName, lastName, dateOfBirth, studentClass } = req.body;
+    const { userName, email, firstName, lastName, dateOfBirth, gender, studentClass, fathersName, fathersPhoneNumber, mothersName, mothersPhoneNumber, homeAddress } = req.body;
 
-    if (!userName || !email || !firstName || !lastName || !dateOfBirth || !studentClass) {
-        return res.status(400).json('Invalid application: username, email, first name, last name, and class are required');
+    if (!userName || !email || !firstName || !lastName || !dateOfBirth || !studentClass || !gender) {
+        return res.status(400).json(`Invalid application: username, email, first name, last name, and student's Class are required`);
     }
 
-    const duplicate = await Student.findOne({ userName }).exec();
+    const duplicate = await Student.findOne({ email }).exec();
     if (duplicate) {
-        return res.sendStatus(409).json('Oops! Username and email have already been chosen by another user');
+        return res.sendStatus(409).json('Oops! email have already been chosen by another user');
     }
 
     try {
@@ -28,11 +28,17 @@ const regNewStudent = async (req, res) => {
             firstName,
             lastName,
             dateOfBirth,
-            studentClass
+            studentClass,
+            gender,
+            fathersName,
+            fathersPhoneNumber,
+            mothersName,
+            mothersPhoneNumber,
+            homeAddress
         });
 
         console.log(result);
-        res.status(201).json({ Success: `You have successfully registered ${userName} Into The School Data base` });
+        res.status(201).json({ Success: `You have successfully registered ${firstName} ${lastName} Into The School Data base` });
     } catch (err) {
         console.log(err.message);
         res.sendStatus(500).json();
@@ -63,11 +69,29 @@ const updateStudent = async (req, res) => {
         if (req.body?.studentClass) {
             student.studentClass = req.body.studentClass
         }
+        if (req.body?.gender) {
+            student.gender = req.body.gender
+        }
+        if (req.body?.fathersName) {
+            student.fathersName = req.body.fathersName
+        }
+        if (req.body?.fathersPhoneNumber) {
+            student.fathersPhoneNumber = req.body.fathersPhoneNumber
+        }
+        if (req.body?.mothersName) {
+            student.mothersName = req.body.mothersName
+        }
+        if (req.body?.mothersPhoneNumber) {
+            student.mothersPhoneNumber = req.body.mothersPhoneNumber
+        }
+        if (req.body?.homeAddress) {
+            student.homeAddress = req.body.homeAddress
+        }
         const result = await student.save();
         res.json(result);
         console.log(result);
     } catch (err) {
-        res.status(500).json('Internal Server Error');
+        res.sendStatus(500).json('Internal Server Error');
         console.log(err.message)
     };
 }

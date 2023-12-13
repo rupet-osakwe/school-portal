@@ -1,5 +1,5 @@
 
-const staff = require('../mySchemas/Staffs');
+const staff = require('../mySchemas/Admin');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const role = require('../config/roles').Admin;

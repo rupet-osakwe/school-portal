@@ -23,9 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/studentBase', require('./routes/students'));
+app.use('/studentInfo', require('./routes/students'));
 app.use('/staffBase', require('./routes/staff'));
 app.use('/resultBase', require('./routes/result'));
 app.use('/AdminLogin', require('./routes/adminAuth'));
+app.use('/viewAdmin', require('./routes/adminData'));
 app.use('/staffLogin', require('./routes/staffLogIn'));
 app.use('/studentLogIn', require('./routes/studentLogIn'))
 // app.use(verifyJWT);
